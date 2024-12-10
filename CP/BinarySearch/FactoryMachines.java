@@ -1,19 +1,22 @@
 package CP.BinarySearch;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.Arrays;
 import java.util.StringTokenizer;
 
-public class ArrayDivision {
+public class FactoryMachines {
 
-    public static void solution(long[] nums, long k) {
-        long high = Arrays.stream(nums).sum();
-        long low = Arrays.stream(nums).max().orElse(Integer.MAX_VALUE);
+    public static void solution(long[] nums, long t) {
+        if (nums == null || nums.length == 0 || t == 0) {
+            System.out.println(0);
+            return;
+        }
+
+        long low = 0, high = Arrays.stream(nums).min().getAsLong() * t;
+
         while (low <= high) {
-            long mid = (low + high) / 2;
-            if (canSplit(nums, k, mid)) {
+            long mid = low + (high - low) / 2;
+            if (numerOfMachines(nums, mid, t)) {
                 high = mid - 1;
             } else {
                 low = mid + 1;
@@ -22,32 +25,24 @@ public class ArrayDivision {
         System.out.println(low);
     }
 
-    public static boolean canSplit(long[] arr, long k, long maxSumInSubArr) {
-        long sum = 0;
-        for (int i = 0; i < arr.length; i++) {
-            long cv = arr[i];
-            if (cv > maxSumInSubArr)
-                return false;
-            if (sum + cv > maxSumInSubArr) {
-                k--;
-                sum = cv;
-            } else {
-                sum += cv;
-            }
+    public static boolean numerOfMachines(long[] nums, long time, long t) {
+        long count = 0;
+        for (long oneMachineTime : nums) {
+            count += time / oneMachineTime;
         }
-        return k >= 1;
+        return count >= t;
     }
 
     public static void main(String[] args) throws IOException {
         FastReader fr = new FastReader();
         long n = fr.nextLong();
-        long k = fr.nextLong();
+        long t = fr.nextLong();
         long[] a = new long[(int) n];
 
         for (int i = 0; i < n; i++) {
             a[i] = fr.nextLong();
         }
-        solution(a, k);
+        solution(a, t);
 
     }
 
@@ -93,4 +88,5 @@ public class ArrayDivision {
             return str;
         }
     }
+
 }
