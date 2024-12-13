@@ -6,7 +6,7 @@ public class UglyNo3 {
         public int nthUglyNumber(int n, int a, int b, int c) {
             long low = 1, high = Long.MAX_VALUE;
 
-            long ab = lcm(a, b), bc = lcm(b, c), ca = lcm(c, a), abc = lcm(a, (int) bc);
+            long ab = lcm(a, b), bc = lcm(b, c), ca = lcm(c, a), abc = lcm(a, bc);
 
             while (low <= high) {
                 long mid = low + (high - low) / 2;
@@ -24,11 +24,11 @@ public class UglyNo3 {
             return (int) low;
         }
 
-        public long lcm(int a, int b) {
+        public long lcm(long a, long b) {
             return (long) a * (b / gcd(a, b));
         }
 
-        public int gcd(int a, int b) {
+        public long gcd(long a, long b) {
             if (b == 0)
                 return a;
             return gcd(b, a % b);

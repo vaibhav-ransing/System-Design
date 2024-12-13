@@ -52,9 +52,9 @@ public class With {
 
     static class PassengerVehicle extends Vehicle {
 
-        /* We passed SuperDrive Object to class*/
+        /* We passed Regular Object to class*/
         PassengerVehicle() {
-            super(new SuperDrive());
+            super(new RegularDrive());
         }
     }
 
