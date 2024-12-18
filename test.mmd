@@ -1,0 +1,57 @@
+erDiagram
+    USER ||--o{ ORGANIZATION_MEMBER : "belongs to"
+    USER {
+        long id PK
+        string username
+        string email
+        string passwordHash
+        datetime createdAt
+    }
+
+    ORGANIZATION ||--o{ ORGANIZATION_MEMBER : "has"
+    ORGANIZATION {
+        long id PK
+        string name
+        long ownerId FK
+        datetime createdAt
+    }
+
+    ORGANIZATION_MEMBER {
+        long id PK
+        long userId FK
+        long organizationId FK
+        string role
+        datetime joinedAt
+    }
+
+    ORGANIZATION ||--o{ PROJECT : "contains"
+    PROJECT {
+        long id PK
+        string name
+        string description
+        long organizationId FK
+        datetime createdAt
+    }
+
+    PROJECT ||--o{ PROJECT_MEMBER : "has"
+    PROJECT_MEMBER {
+        long id PK
+        long userId FK
+        long projectId FK
+        string role
+        datetime assignedAt
+    }
+
+    PROJECT ||--o{ TICKET : "contains"
+    TICKET {
+        long id PK
+        string title
+        string description
+        string status
+        string priority
+        long assigneeId FK
+        long creatorId FK
+        long projectId FK
+        datetime createdAt
+        datetime updatedAt
+    }
